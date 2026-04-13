@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Rate Statistics - One Year</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Gold Rate Statistics</h1>
+            <p>Monthly Average Gold Prices - 2025</p>
+        </div>
+        
+        <div class="chart-wrapper">
+            <canvas id="goldChart"></canvas>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Highest Price</h3>
+                <div class="value">$2,150<span class="currency">/oz</span></div>
+            </div>
+            <div class="stat-card">
+                <h3>Lowest Price</h3>
+                <div class="value">$1,890<span class="currency">/oz</span></div>
+            </div>
+            <div class="stat-card">
+                <h3>Average Price</h3>
+                <div class="value">$2,015<span class="currency">/oz</span></div>
+            </div>
+            <div class="stat-card">
+                <h3>Annual Change</h3>
+                <div class="value">+8.5<span class="currency">%</span></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📊 Data representation for educational purposes | Last updated: April 2026</p>
+        </div>
+    </div>
+    
+    <script>
+        // Gold rate data for 12 months (in USD per ounce)
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+        const goldPrices = [1950, 1920, 1890, 1920, 1980, 2010, 2050, 2100, 2150, 2120, 2090, 2080];
+        
+        const ctx = document.getElementById('goldChart').getContext('2d');
+        const goldChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Gold Rate (USD/oz)',
+                    data: goldPrices,
+                    borderColor: '#ffd700',
+                    backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#ffd700',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 8,
+                    shadowColor: 'rgba(0, 0, 0, 0.1)',
+                    shadowBlur: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            font: { size: 14 },
+                            color: '#333',
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        padding: 12,
+                        titleFont: { size: 14 },
+                        bodyFont: { size: 13 },
+                        borderColor: '#ffd700',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.y + ' per ounce';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 1800,
+                        max: 2200,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            },
+                            font: { size: 12 },
+                            color: '#666'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)',
+                            drawBorder: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Price (USD)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: { size: 12 },
+                            color: '#666'
+                        },
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
